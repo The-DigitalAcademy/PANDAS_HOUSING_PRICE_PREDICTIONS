@@ -62,24 +62,34 @@ def main():
     clicked = st.button('Get Predictions')
 
     # Perform predictions when the button is clicked
+    import numpy as np
+
+# ...
+
     if clicked:
         if selected_model == "model2":
-            model = model2  # Corrected variable name
+            model = model2
         elif selected_model == "model3":
-            model = model3  # Corrected variable name
+            model = model3
+
+        # Explicitly convert input features to NumPy arrays
+        input_features = np.array([
+            feature1, feature2, feature3, feature4,
+            feature5, feature6, feature7, feature8
+        ], dtype=np.float32)
+
+        # Reshape input features to match the model's input shape
+        input_features = input_features.reshape(1, -1)
 
         # Perform predictions using the selected model
-        input_features = pd.DataFrame({
-            "longitude": [feature1],
-            "latitude": [feature2],
-            "housing_median_age": [feature3],
-            "total_bedrooms": [feature4],
-            "population": [feature5],
-            "households": [feature6],
-            "median_income": [feature7],
-            "median_house_value": [feature8],
-            "ocean_proximity": [feature9]
-        })
+        prediction = model.predict(input_features)
+
+        # Display the prediction result
+        st.header('Prediction')
+        st.write(f'The prediction result is: {prediction[0]}')
+
+# ...
+
         prediction = model.predict(input_features)
 
         # Display the prediction result
