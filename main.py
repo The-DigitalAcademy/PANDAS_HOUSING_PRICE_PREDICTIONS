@@ -1,18 +1,20 @@
 import pandas as pd
 import streamlit as st
-import joblib
-from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier
+import h5py
+from keras.models import load_model  # Assuming Keras model was used
 
 # Function to load the models
 def load_models():
-    model2_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/blob/main/model2.h5'  # Corrected file extension to '.pkl'
-    model3_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/blob/main/model3.h5' 
+    model2_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model2.h5'
+    model3_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model3.h5'
     
-    model2 = joblib.load(model2_path)    
-    model3 = joblib.load(model3_path)
+    model2 = load_model(model2_path)
+    model3 = load_model(model3_path)
     
     return model2, model3
+
+# Rest of the code remains the same
+
 
 def main():
     # Title of the web app
