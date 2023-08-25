@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 # Function to load the models
 def load_models():
     model2_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/blob/main/model2.h5'  # Corrected file extension to '.pkl'
-    model3_path = ''  # Corrected file extension to '.pkl'
+    model3_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/blob/main/model3.h5' 
     
     model2 = joblib.load(model2_path)    
     model3 = joblib.load(model3_path)
