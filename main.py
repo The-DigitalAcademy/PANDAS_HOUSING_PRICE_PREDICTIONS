@@ -3,15 +3,32 @@ import streamlit as st
 import h5py
 from keras.models import load_model  # Assuming Keras model was used
 
-# Function to load the models
-def load_models():
-    model2_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model2.h5'
-    model3_path = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model3.h5'
+import pandas as pd
+import streamlit as st
+import requests
+from keras.models import load_model
+
+# Function to download models from GitHub
+def download_models():
+    model2_url = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model2.h5'
+    model3_url = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model3.h5'
     
-    model2 = load_model(model2_path)
-    model3 = load_model(model3_path)
+    response_model2 = requests.get(model2_url)
+    response_model3 = requests.get(model3_url)
+    
+    with open('model2.h5', 'wb') as f:
+        f.write(response_model2.content)
+    
+    with open('model3.h5', 'wb') as f:
+        f.write(response_model3.content)
+
+def load_models():
+    download_models()
+    model2 = load_model('model2.h5')
+    model3 = load_model('model3.h5')
     
     return model2, model3
+
 
 # Rest of the code remains the same
 
