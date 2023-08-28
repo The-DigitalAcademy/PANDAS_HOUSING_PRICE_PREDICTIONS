@@ -1,70 +1,36 @@
-import pandas as pd
 import streamlit as st
-import requests
 import tensorflow as tf
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
-# Function to download models from GitHub
-def download_models():
-    model2_url = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model2.h5'
-    model3_url = 'https://github.com/The-DigitalAcademy/PANDAS_HOUSING_PRICE_PREDICTIONS/raw/main/model3.h5'
-    
-    response_model2 = requests.get(model2_url)
-    response_model3 = requests.get(model3_url)
-    
-    with open('model2.h5', 'wb') as f:
-        f.write(response_model2.content)
-    
-    with open('model3.h5', 'wb') as f:
-        f.write(response_model3.content)
+# Load the pre-trained model
+model = tf.keras.models.load_model('manoko3.h5')
 
-def load_models():
-    download_models()
-    model2 = tf.keras.models.load_model('model2.h5')
-    model3 = tf.keras.models.load_model('model3.h5')
-    
-    return model2, model3
+st.title("Loan Approval Prediction")
 
-def main():
-    st.title("Model Predictions App")
-    st.write("Enter the following features to get predictions:")
+# Input fields for the new features
+feature1 = st.number_input("longitude", value=0)
+feature2 = st.number_input("latitude", value=0)
+feature3 = st.number_input("housing_median_age", value=0)
+feature4 = st.number_input("total_bedrooms", value=0)
+feature5 = st.number_input("population", value=0)
+feature6 = st.number_input("households", value=0)
+feature7 = st.number_input("median_income", value=0)
+feature8 = st.number_input("median_house_value", value=0)
+ocean_proximity = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
 
-    model2, model3 = load_models()
+# Make predictions when a button is clicked
+if st.button("Predict"):
+    # Prepare the input data for prediction
+    input_data = np.array([feature1, feature2, feature3, feature4, feature5,
+                           feature6, feature7, feature8])
 
-    st.header('Feature Input')
-    
-    feature1 = st.number_input("longitude", value=0)
-    feature2 = st.number_input("latitude", value=0)
-    feature3 = st.number_input("housing_median_age", value=0)
-    feature4 = st.number_input("total_bedrooms", value=0)
-    feature5 = st.number_input("population", value=0)
-    feature6 = st.number_input("households", value=0)
-    feature7 = st.number_input("median_income", value=0)
-    feature8 = st.number_input("median_house_value", value=0)
-    feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
+    # Preprocess input_data if needed
+    scaler = StandardScaler()
+    input_data_scaled = scaler.fit_transform(input_data.reshape(1, -1))
 
-    selected_model = st.selectbox("Choose a model", ["model2", "model3"])
+    # Use the loaded model to make predictions
+    prediction = model.predict(input_data_scaled)
 
-    clicked = st.button('Get Predictions')
-
-    if clicked:
-        if selected_model == "model2":
-            model = model2
-        elif selected_model == "model3":
-            model = model3
-
-        input_features = np.array([
-            feature1, feature2, feature3, feature4,
-            feature5, feature6, feature7, feature8
-        ], dtype=np.float32)
-
-        input_features = input_features.reshape(1, -1)
-
-        prediction = model.predict(input_features)
-
-        st.header('Prediction')
-        st.write(f'The prediction result is: {prediction[0]}')
-
-if __name__ == '__main__':
-    main()
-
+    # Display the prediction
+    st.write(f"Loan Approval Probability: {prediction[0, 0]}")
