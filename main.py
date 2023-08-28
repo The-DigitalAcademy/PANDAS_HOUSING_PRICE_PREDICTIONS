@@ -22,15 +22,15 @@ feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN",
 if st.button("Predict"):
     try:
         # Prepare the input data for prediction
-        input_data = np.array([feature1, feature2, feature3, feature4, feature5,
-                               feature6, feature7, feature8, feature9])
+        input_data = np.array([[feature1, feature2, feature3, feature4, feature5,
+                               feature6, feature7, feature8, feature9]])
 
         # Convert ocean_proximity to a one-hot encoded vector if needed
 
         st.write("Input Data:", input_data)  # Log the input data
 
         # Use the loaded model to make predictions
-        prediction = model.predict(np.array([input_data]))
+        prediction = model.predict(input_data)
 
         st.write("Raw Prediction:", prediction)  # Log the raw prediction
 
