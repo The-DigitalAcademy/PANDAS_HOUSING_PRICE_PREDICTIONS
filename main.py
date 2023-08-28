@@ -1,12 +1,8 @@
 import pandas as pd
 import streamlit as st
-import h5py
-from keras.models import load_model  # Assuming Keras model was used
-
-import pandas as pd
-import streamlit as st
 import requests
-from keras.models import load_model
+import tensorflow as tf
+import numpy as np
 
 # Function to download models from GitHub
 def download_models():
@@ -24,27 +20,19 @@ def download_models():
 
 def load_models():
     download_models()
-    model2 = load_model('model2.h5')
-    model3 = load_model('model3.h5')
+    model2 = tf.keras.models.load_model('model2.h5')
+    model3 = tf.keras.models.load_model('model3.h5')
     
     return model2, model3
 
-
-# Rest of the code remains the same
-
-
 def main():
-    # Title of the web app
     st.title("Model Predictions App")
     st.write("Enter the following features to get predictions:")
 
-    # Load the models
     model2, model3 = load_models()
 
-    # User input for features
     st.header('Feature Input')
     
-    # Create input fields for each feature
     feature1 = st.number_input("longitude", value=0)
     feature2 = st.number_input("latitude", value=0)
     feature3 = st.number_input("housing_median_age", value=0)
@@ -53,18 +41,11 @@ def main():
     feature6 = st.number_input("households", value=0)
     feature7 = st.number_input("median_income", value=0)
     feature8 = st.number_input("median_house_value", value=0)
-    feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])  # Dropdown for ocean_proximity
-    
-    # Selection box for the model to use
-    selected_model = st.selectbox("Choose a model", ["model2", "model3"])  # Corrected typo
+    feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
 
-    # Button for predictions
+    selected_model = st.selectbox("Choose a model", ["model2", "model3"])
+
     clicked = st.button('Get Predictions')
-
-    # Perform predictions when the button is clicked
-    import numpy as np
-
-# ...
 
     if clicked:
         if selected_model == "model2":
@@ -72,29 +53,18 @@ def main():
         elif selected_model == "model3":
             model = model3
 
-        # Explicitly convert input features to NumPy arrays
         input_features = np.array([
             feature1, feature2, feature3, feature4,
             feature5, feature6, feature7, feature8
         ], dtype=np.float32)
 
-        # Reshape input features to match the model's input shape
         input_features = input_features.reshape(1, -1)
 
-        # Perform predictions using the selected model
         prediction = model.predict(input_features)
 
-        # Display the prediction result
-        st.header('Prediction')
-        st.write(f'The prediction result is: {prediction[0]}')
-
-# ...
-
-        prediction = model.predict(input_features)
-
-        # Display the prediction result
         st.header('Prediction')
         st.write(f'The prediction result is: {prediction[0]}')
 
 if __name__ == '__main__':
     main()
+
