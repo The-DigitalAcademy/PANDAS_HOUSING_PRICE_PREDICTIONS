@@ -17,13 +17,15 @@ feature6 = st.number_input("population", value=0)
 feature7 = st.number_input("households", value=0)
 feature8 = st.number_input("median_income", value=0)
 feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
+# Convert ocean_proximity to a one-hot encoded vector
+ocean_proximity_encoded = pd.get_dummies([feature9], columns=["ocean_proximity"]).values
 
 # Make predictions when a button is clicked
 if st.button("Predict"):
     try:
         # Prepare the input data for prediction
         input_data = np.array([[feature1, feature2, feature3, feature4, feature5,
-                               feature6, feature7, feature8, feature9]])
+                               feature6, feature7, feature8, ocean_proximity_encoded ]])
 
         # Convert ocean_proximity to a one-hot encoded vector if needed
 
