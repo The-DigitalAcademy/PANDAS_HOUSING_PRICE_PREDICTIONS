@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 
 # Load the pre-trained model
-model = tf.keras.models.load_model('manoko3.h5')
+model = tf.keras.models.load_model('model2.h5')
 
 st.title("Loan Approval Prediction")
 
@@ -34,3 +34,5 @@ if st.button("Predict"):
 
     # Display the prediction
     st.write(f"Loan Approval Probability: {prediction[0, 0]}")
+
+    
