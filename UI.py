@@ -23,8 +23,7 @@ def main():
     feature5 = st.number_input("population", value=0)
     feature6 = st.number_input("households", value=0)
     feature7 = st.number_input("median_income", value=0)
-    feature8 = st.number_input("median_house_value", value=0)
-    feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
+    feature8 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
 
     # Selection box for the model to use
     selected_model = st.selectbox("Choose a model", ["model2", "model3"])
@@ -55,8 +54,7 @@ def main():
                 "population": [feature5],
                 "households": [feature6],
                 "median_income": [feature7],
-                "median_house_value": [feature8],
-                "ocean_proximity": [feature9]
+                "ocean_proximity": [feature8]
             })
 
             if hasattr(model, 'predict'):  # Check if the model has a predict method
