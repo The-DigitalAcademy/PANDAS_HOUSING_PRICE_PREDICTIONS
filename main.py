@@ -37,7 +37,7 @@ if st.button("Predict"):
         input_data = np.array([[feature1, feature2, feature3, feature4, feature5,
                                feature6, feature7, feature8]])
         # Combine numerical features and the one-hot encoded categorical feature
-       input_data = np.concatenate([input_data, ocean_proximity_encoded], axis=1)
+        input_data = np.concatenate([input_data, ocean_proximity_encoded], axis=1)
 
         # Convert ocean_proximity to a one-hot encoded vector if needed
 
