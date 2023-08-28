@@ -43,6 +43,9 @@ def main():
             return
 
         try:
+            # Debug: Print the type of the loaded model
+            print(f"Type of loaded model: {type(model)}")
+
             # Perform predictions using the selected model
             input_features = pd.DataFrame({
                 "longitude": [feature1],
@@ -55,11 +58,14 @@ def main():
                 "median_house_value": [feature8],
                 "ocean_proximity": [feature9]
             })
-            prediction = model.predict(input_features)
 
-            # Display the prediction result
-            st.header('Prediction')
-            st.write(f'The prediction result is: {prediction[0]}')
+            if hasattr(model, 'predict'):  # Check if the model has a predict method
+                prediction = model.predict(input_features)
+                # Display the prediction result
+                st.header('Prediction')
+                st.write(f'The prediction result is: {prediction[0]}')
+            else:
+                st.error("Selected model does not have a 'predict' method.")
         except Exception as e:
             st.error(f"An error occurred: {e}")
 
