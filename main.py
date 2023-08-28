@@ -28,8 +28,7 @@ ocean_proximity_encoded = ocean_proximity_encoded.reshape(1, -1)
 # Remove the last column from input_data (ocean_proximity)
 #input_data = input_data[:, :-1]
 
-# Combine numerical features and the one-hot encoded categorical feature
-input_data = np.concatenate([input_data, ocean_proximity_encoded], axis=1)
+
 
 # Make predictions when a button is clicked
 if st.button("Predict"):
@@ -37,6 +36,8 @@ if st.button("Predict"):
         # Prepare the input data for prediction
         input_data = np.array([[feature1, feature2, feature3, feature4, feature5,
                                feature6, feature7, feature8]])
+        # Combine numerical features and the one-hot encoded categorical feature
+       input_data = np.concatenate([input_data, ocean_proximity_encoded], axis=1)
 
         # Convert ocean_proximity to a one-hot encoded vector if needed
 
