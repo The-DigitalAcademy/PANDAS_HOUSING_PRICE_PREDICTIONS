@@ -20,7 +20,7 @@ feature8 = st.number_input("median_income", value=0)
 feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
 # Convert ocean_proximity to a one-hot encoded vector
 # Convert ocean_proximity to a one-hot encoded vector
-ocean_proximity_encoded = pd.get_dummies([feature9], columns=["ocean_proximity"],drop_first=true).values
+ocean_proximity_encoded = pd.get_dummies([feature9], columns=["ocean_proximity"],drop_first=True).values
 
 # Ensure ocean_proximity_encoded is a 2D array
 ocean_proximity_encoded = ocean_proximity_encoded.reshape(1, -1)
