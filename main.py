@@ -16,8 +16,7 @@ feature4 = st.number_input("total_bedrooms", value=0)
 feature5 = st.number_input("population", value=0)
 feature6 = st.number_input("households", value=0)
 feature7 = st.number_input("median_income", value=0)
-feature8 = st.number_input("median_house_value", value=0)
-ocean_proximity = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
+feature8 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
 
 # Make predictions when a button is clicked
 if st.button("Predict"):
@@ -25,14 +24,8 @@ if st.button("Predict"):
     input_data = np.array([feature1, feature2, feature3, feature4, feature5,
                            feature6, feature7, feature8])
 
-    # Preprocess input_data if needed
-    scaler = StandardScaler()
-    input_data_scaled = scaler.fit_transform(input_data.reshape(1, -1))
-
     # Use the loaded model to make predictions
-    prediction = model.predict(input_data_scaled)
+    prediction = model.predict(np.array([input_data]))
 
     # Display the prediction
     st.write(f"Loan Approval Probability: {prediction[0, 0]}")
-
-    
