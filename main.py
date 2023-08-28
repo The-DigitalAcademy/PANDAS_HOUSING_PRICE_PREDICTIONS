@@ -26,7 +26,7 @@ if st.button("Predict"):
     try:
         # Prepare the input data for prediction
         input_data = np.array([[feature1, feature2, feature3, feature4, feature5,
-                               feature6, feature7, feature8, ocean_proximity_encoded ]])
+                               feature6, feature7, feature8]])
 
         # Convert ocean_proximity to a one-hot encoded vector if needed
 
