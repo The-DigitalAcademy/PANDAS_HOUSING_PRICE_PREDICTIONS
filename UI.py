@@ -35,31 +35,33 @@ def main():
     # Perform predictions when the button is clicked
     if clicked:
         if selected_model == "model2":
-            model = model3
-        elif selected_model == "model3":
             model = model2
+        elif selected_model == "model3":
+            model = model3
         else:
             st.warning("Please select a valid model.")
             return
 
-        # Perform predictions using the selected model
-        input_features = pd.DataFrame({
-            "longitude": [feature1],
-            "latitude": [feature2],
-            "housing_median_age": [feature3],
-            "total_bedrooms": [feature4],
-            "population": [feature5],
-            "households": [feature6],
-            "median_income": [feature7],
-            "median_house_value": [feature8],
-            "ocean_proximity": [feature9]
-        })
-        prediction = model.predict(input_features)
+        try:
+            # Perform predictions using the selected model
+            input_features = pd.DataFrame({
+                "longitude": [feature1],
+                "latitude": [feature2],
+                "housing_median_age": [feature3],
+                "total_bedrooms": [feature4],
+                "population": [feature5],
+                "households": [feature6],
+                "median_income": [feature7],
+                "median_house_value": [feature8],
+                "ocean_proximity": [feature9]
+            })
+            prediction = model.predict(input_features)
 
-        # Display the prediction result
-        st.header('Prediction')
-        st.write(f'The prediction result is: {prediction[0]}')
+            # Display the prediction result
+            st.header('Prediction')
+            st.write(f'The prediction result is: {prediction[0]}')
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
 
 if __name__ == '__main__':
     main()
-
