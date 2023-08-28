@@ -1,7 +1,6 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-from sklearn.preprocessing import StandardScaler
 
 # Load the pre-trained model
 model = tf.keras.models.load_model('model2.h5')
@@ -16,16 +15,24 @@ feature4 = st.number_input("total_bedrooms", value=0)
 feature5 = st.number_input("population", value=0)
 feature6 = st.number_input("households", value=0)
 feature7 = st.number_input("median_income", value=0)
-feature8 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
+feature8 = st.number_input("median_house_value", value=0)
 
 # Make predictions when a button is clicked
 if st.button("Predict"):
-    # Prepare the input data for prediction
-    input_data = np.array([feature1, feature2, feature3, feature4, feature5,
-                           feature6, feature7, feature8])
+    try:
+        # Prepare the input data for prediction
+        input_data = np.array([feature1, feature2, feature3, feature4, feature5,
+                               feature6, feature7, feature8])
 
-    # Use the loaded model to make predictions
-    prediction = model.predict(np.array([input_data]))
+        st.write("Input Data:", input_data)  # Log the input data
 
-    # Display the prediction
-    st.write(f"Loan Approval Probability: {prediction[0, 0]}")
+        # Use the loaded model to make predictions
+        prediction = model.predict(np.array([input_data]))
+
+        st.write("Raw Prediction:", prediction)  # Log the raw prediction
+
+        # Display the prediction
+        st.write(f"Loan Approval Probability: {prediction[0, 0]}")
+    except Exception as e:
+        st.error("An error occurred during prediction.")
+        st.exception(e)  # Log the exception details
