@@ -15,16 +15,6 @@ scaler = joblib.load('scaler.pkl')
 # Define column names in the same order as your training data
 columns = ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'ocean_proximity']
 
-# Define a function to display the "Overview" page
-def project_overview():
-    # Set page configuration and title
-    st.title("Loan Approval Prediction")
-    st.title("Project Overview")
-
-    st.write("This project is aimed at predicting loan approval using machine learning.")
-    st.write("It uses a deep learning model to predict whether a loan application is likely to be approved or not.")
-    st.write("Please navigate to other pages for more details about the team and predictions.")
-
 # Set page configuration and title
 st.title("Loan Approval Prediction")
 
@@ -32,6 +22,16 @@ st.title("Loan Approval Prediction")
 with st.sidebar:
     # Add options in the sidebar to navigate to different pages
     page_selection = st.selectbox("Navigation", ["Project Overview", "Loan Approval Prediction"])
+
+# Define a function to display the "Overview" page
+def project_overview():
+    # Set page configuration and title
+    st.title("Loan Approval Prediction")
+    st.title("Project Overview")
+
+    st.write("This project is aimed at predicting loan approval using machine learning.")
+    st.write("It uses a deep learning model to predict the loan amount, which can be used to make a decision about loan approval.")
+    st.write("Please navigate to other pages for more details about the team and predictions.")
 
 # Main content
 if page_selection == "Loan Approval Prediction":
@@ -51,11 +51,13 @@ if page_selection == "Loan Approval Prediction":
 
         # Use the loaded model to make predictions
         prediction = model.predict(input_data)
-        result = "likely to be approved" if prediction >= 0.5 else "not likely to be approved"
-
-        st.write(f"Prediction: {prediction[0]}")
-        st.write(f"The client is {result}.")
+        
+        # Assuming the prediction is a single continuous value representing loan amount
+        predicted_loan_amount = prediction[0]  # Adjust this according to your regression target
+        
+        # Display the prediction result
+        st.write(f"Predicted House Price: {predicted_House_Price:.2f}")
+        # You can add additional logic here to determine loan approval based on the predicted amount
 elif page_selection == "Project Overview":
     project_overview()
 
-    
