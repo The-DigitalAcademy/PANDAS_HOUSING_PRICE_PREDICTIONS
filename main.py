@@ -13,7 +13,7 @@ model = tf.keras.models.load_model('model3 (1).h5')
 scaler = joblib.load('scaler.pkl')
 
 # Define column names in the same order as your training data
-columns = ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'median_house_value', 'ocean_proximity']
+columns = ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'ocean_proximity']
 
 # Define a function to display the "Overview" page
 def project_overview():
