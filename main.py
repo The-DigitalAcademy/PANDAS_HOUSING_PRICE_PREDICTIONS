@@ -7,7 +7,7 @@ import joblib
 from PIL import Image
 
 # Load your trained model (replace with the path to your model file)
-model = tf.keras.models.load_model('model3(1).h5')
+model = tf.keras.models.load_model('model3 (1).h5')
 
 # Load your scaler (replace with the path to your scaler file)
 scaler = joblib.load('scaler.pkl')
