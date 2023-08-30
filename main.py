@@ -16,39 +16,6 @@ scaler = joblib.load('scaler.pkl')
 columns = ['longitude',	'latitude',	'housing_median_age',	'total_rooms',	'total_bedrooms',	'population',	'households',	'median_income',	'median_house_value',	'ocean_proximity']
 # Add more column names as needed to match your training data
 
-# # Define a function to display the "Meet the Team" page
-# def meet_the_team():
-#     st.title("Meet the Team")
-    
-#     # Add team members with their pictures and descriptions
-#     team_members = [
-#         {"name": "Manoko Langa", "position": "Data Scientist", "image": "manoko.jpeg", "description": "Manoko is a data scientist with expertise in machine learning and data analysis."},
-#         {"name": "Thando Vilakazi", "position": "Web Developer", "image": "thando.jpeg", "description": "Thando is a web developer responsible for creating the Streamlit app."},
-#         # Add more team members as needed
-#     ]
-    
-#     # Create a container for the team members
-#     team_container = st.container()
-    
-#     # Create a CSS class for horizontal layout
-#     st.markdown(
-#         """
-#         <style>
-#         .horizontal-layout {
-#             display: flex;
-#             flex-direction: row;
-#         }
-#         </style>
-#         """,
-#         unsafe_allow_html=True,
-#     )
-    
-#     for member in team_members:
-#         with team_container:
-#             st.image(member['image'], caption=member['name'], use_column_width=True)
-#             st.markdown(f"**{member['name']}**")
-#             st.write(f"**Position**: {member['position']}")
-#             st.write(member['description'])
 
 # Define a function to display the "Overview" page
 def project_overview():
