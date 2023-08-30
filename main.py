@@ -13,57 +13,49 @@ model = tf.keras.models.load_model('model3 (1).h5')
 scaler = joblib.load('scaler.pkl')
 
 # Define column names in the same order as your training data
-columns = ['longitude',	'latitude',	'housing_median_age',	'total_rooms',	'total_bedrooms',	'population',	'households',	'median_income',	'median_house_value',	'ocean_proximity']
-# Add more column names as needed to match your training data
-
+columns = ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'median_house_value', 'ocean_proximity']
 
 # Define a function to display the "Overview" page
 def project_overview():
-    
-# Set page configuration and title
+    # Set page configuration and title
     st.title("Loan Approval Prediction")
     st.title("Project Overview")
-    
-    st.write("This project is aimed at predicting loan approval using machine learning.")
 
+    st.write("This project is aimed at predicting loan approval using machine learning.")
     st.write("It uses a deep learning model to predict whether a loan application is likely to be approved or not.")
-    
     st.write("Please navigate to other pages for more details about the team and predictions.")
 
 # Set page configuration and title
-    #st.title("Loan Approval Prediction")
+st.title("Loan Approval Prediction")
 
 # Sidebar
 with st.sidebar:
     # Add options in the sidebar to navigate to different pages
-    page_selection = st.selectbox("Navigation", 
-                                   ["Project Overview", "Loan Approval Prediction"])
+    page_selection = st.selectbox("Navigation", ["Project Overview", "Loan Approval Prediction"])
 
 # Main content
 if page_selection == "Loan Approval Prediction":
     # Create a DataFrame from the input variables
     input_df = pd.DataFrame(columns=columns)
     input_df.loc[0] = [0] * len(columns)  # Initialize with zeros, you can replace these with your desired default values
-    
+
     # Create input fields for each column
     for column in columns:
         input_df[column] = st.number_input(f"{column.replace('_', ' ').title()}", value=input_df[column].values[0])
-    
+
     # Make predictions when a button is clicked
     if st.button("Predict"):
         # Standardize the input data using the loaded scaler
         input_data = input_df.values  # Convert DataFrame to array
         input_data = scaler.transform(input_data)
-        
+
         # Use the loaded model to make predictions
         prediction = model.predict(input_data)
         result = "likely to be approved" if prediction >= 0.5 else "not likely to be approved"
-        
+
         st.write(f"Prediction: {prediction[0]}")
         st.write(f"The client is {result}.")
-# elif page_selection == "Meet the Team":
-#     meet_the_team()
 elif page_selection == "Project Overview":
     project_overview()
 
-        
+    
