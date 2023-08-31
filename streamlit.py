@@ -6,7 +6,6 @@ import pandas as pd
 # Load the pre-trained model
 model = tf.keras.models.load_model('model3.h5')
 
-# Load your actual dataset used for training
 df = pd.read_csv('/content/drive/MyDrive/houseing_clean.csv')
 
 # Preprocess user input
@@ -15,7 +14,7 @@ numeric_columns = ['housing_median_age', 'total_bedrooms', 'households', 'median
 scaler.fit(df[numeric_columns])
 
 # Streamlit app
-st.title("HOUSE PRICE PREDICTION")
+st.title("HOUSE VALUE PREDICTION")
 
 # User input for features
 st.header('Feature Input')
