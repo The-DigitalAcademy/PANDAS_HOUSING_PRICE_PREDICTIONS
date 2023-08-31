@@ -2,62 +2,48 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
-import joblib
-from PIL import Image
 
-# Load your trained model (replace with the path to your model file)
-model = tf.keras.models.load_model('model3 (1).h5')
+# Load the pre-trained model
+model = tf.keras.models.load_model('model2.h5')
 
-# Load your scaler (replace with the path to your scaler file)
-scaler = joblib.load('scaler.pkl')
+# Streamlit UI
+st.title("HOUSE PRICE PREDICTION")
 
-# Define column names in the same order as your training data
-columns = ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 'total_bedrooms', 'population', 'households', 'median_income', 'ocean_proximity']
+# User input for features
+st.header('Feature Input')
 
-# Set page configuration and title
-st.title("Loan Approval Prediction")
+feature1 = st.number_input("longitude", value=0)
+feature2 = st.number_input("latitude", value=0)
+feature3 = st.number_input("housing_median_age", value=0)
+feature4 = st.number_input("total_rooms", value=0)
+feature5 = st.number_input("total_bedrooms", value=0)
+feature6 = st.number_input("population", value=0)
+feature7 = st.number_input("households", value=0)
+feature8 = st.number_input("median_income", value=0)
+feature9 = st.selectbox("ocean_proximity", ["<1H OCEAN", "INLAND", "NEAR OCEAN", "NEAR BAY", "ISLAND"])
 
-# Sidebar
-with st.sidebar:
-    # Add options in the sidebar to navigate to different pages
-    page_selection = st.selectbox("Navigation", ["Project Overview", "Loan Approval Prediction"])
+# Button for predictions
+clicked = st.button('Get Predictions')
 
-# Define a function to display the "Overview" page
-def project_overview():
-    # Set page configuration and title
-    st.title("Loan Approval Prediction")
-    st.title("Project Overview")
+# Perform predictions when the button is clicked
+if clicked:
+    # Preprocess the categorical feature
+    ocean_proximity_mapping = {
+        "<1H OCEAN": 0,
+        "INLAND": 1,
+        "NEAR OCEAN": 2,
+        "NEAR BAY": 3,
+        "ISLAND": 4
+    }
+    feature9_encoded = ocean_proximity_mapping[feature9]
 
-    st.write("This project is aimed at predicting loan approval using machine learning.")
-    st.write("It uses a deep learning model to predict the loan amount, which can be used to make a decision about loan approval.")
-    st.write("Please navigate to other pages for more details about the team and predictions.")
+    # Prepare the input for prediction
+    input_features = np.array([[feature1, feature2, feature3, feature4, feature5,
+                                feature6, feature7, feature8, feature9_encoded]])
 
-# Main content
-if page_selection == "Loan Approval Prediction":
-    # Create a DataFrame from the input variables
-    input_df = pd.DataFrame(columns=columns)
-    input_df.loc[0] = [0] * len(columns)  # Initialize with zeros, you can replace these with your desired default values
+    # Perform predictions using the selected model
+    prediction = model.predict(input_features)
 
-    # Create input fields for each column
-    for column in columns:
-        input_df[column] = st.number_input(f"{column.replace('_', ' ').title()}", value=input_df[column].values[0])
-
-    # Make predictions when a button is clicked
-    if st.button("Predict"):
-        # Standardize the input data using the loaded scaler
-        input_data = input_df.values  # Convert DataFrame to array
-        input_data = scaler.transform(input_data)
-
-        # Use the loaded model to make predictions
-        prediction = model.predict(input_data)
-        
-        # Assuming the prediction is a single continuous value representing loan amount
-        predicted_loan_amount = prediction[0]  # Adjust this according to your regression target
-        
-        # Display the prediction result
-        st.write(f"Predicted House Price: {predicted_House_Price:.2f}")
-        # You can add additional logic here to determine loan approval based on the predicted amount
-elif page_selection == "Project Overview":
-    project_overview()
-
+    # Display the prediction result
+    st.header('Prediction')
+    st.write(f'The predicted house price is: {prediction[0][0]}')
