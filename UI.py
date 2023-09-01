@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 # Load the pre-trained model
-model = tf.keras.models.load_model('model2 (1).h5')
+model = tf.keras.models.load_model('model2 (4).h5')
 
 # Streamlit UI
 st.title("HOUSE PRICE PREDICTION")
