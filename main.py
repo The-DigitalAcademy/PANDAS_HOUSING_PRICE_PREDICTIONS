@@ -9,20 +9,10 @@ model = tf.keras.models.load_model('model3.h5')
 
 df =  pd.read_csv('housing_clean.csv')
 
-# # Preprocess user input
-# scaler = StandardScaler()
-# numeric_columns = ['housing_median_age', 'total_bedrooms', 'households', 'median_income']
-# scaler.fit(df[numeric_columns])
-
-columns_to_scale = ['housing_median_age', 'total_bedrooms', 'households', 'median_income']
-
-# Initialize the StandardScaler
+# Preprocess user input
 scaler = StandardScaler()
-
-# Scale the selected columns in X
-df[columns_to_scale] = scaler.fit_transform(df[columns_to_scale])
-
-
+numeric_columns = ['housing_median_age', 'total_bedrooms', 'households', 'median_income']
+scaler.fit(df[numeric_columns])
 
 # Streamlit app
 st.title("HOUSE VALUE PREDICTION")
@@ -49,10 +39,13 @@ if clicked:
     feature5_encoded = ocean_proximity_mapping[feature5]
 
     # Prepare the input for prediction
-    user_input = np.array([[feature1, feature2, feature3, feature4, feature5_encoded]])
+    user_input = np.array([[feature1, feature2, feature3, feature4]])
     
     # Scale the numerical features
     user_input_scaled = scaler.transform(user_input)
+
+    # Add the encoded ocean_proximity feature back to the input
+    user_input_scaled = np.append(user_input_scaled, [[feature5_encoded]], axis=1)
 
     # Perform predictions using the pre-trained model
     prediction = model.predict(user_input_scaled)
