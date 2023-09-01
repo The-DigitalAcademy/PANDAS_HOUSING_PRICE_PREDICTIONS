@@ -9,10 +9,20 @@ model = tf.keras.models.load_model('model3.h5')
 
 df =  pd.read_csv('housing_clean.csv')
 
-# Preprocess user input
+# # Preprocess user input
+# scaler = StandardScaler()
+# numeric_columns = ['housing_median_age', 'total_bedrooms', 'households', 'median_income']
+# scaler.fit(df[numeric_columns])
+
+columns_to_scale = ['housing_median_age', 'total_bedrooms', 'households', 'median_income']
+
+# Initialize the StandardScaler
 scaler = StandardScaler()
-numeric_columns = ['housing_median_age', 'total_bedrooms', 'households', 'median_income']
-scaler.fit(df[numeric_columns])
+
+# Scale the selected columns in X
+df[columns_to_scale] = scaler.fit_transform(df[columns_to_scale])
+
+
 
 # Streamlit app
 st.title("HOUSE VALUE PREDICTION")
