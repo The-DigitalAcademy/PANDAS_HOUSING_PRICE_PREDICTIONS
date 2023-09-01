@@ -1,3 +1,4 @@
+import streamlit as st
 # Streamlit UI
 st.title("HOUSE PRICE PREDICTION")
 
