@@ -41,7 +41,3 @@ if clicked:
     # Display the prediction result
     st.header('Prediction')
     st.write(f'The predicted house price is: {prediction[0][0]}')
-
-if __name__ == '__main__':
-    main()
-
