@@ -36,18 +36,16 @@ if clicked:
         "NEAR BAY": 3,
         "ISLAND": 4
     }
+    feature5_encoded = ocean_proximity_mapping[feature5]
 
     # Prepare the input for prediction
-    input_features = np.array([[feature1, feature2, feature3, feature4, feature5]])
+    user_input = np.array([[feature1, feature2, feature3, feature4, feature5_encoded]])
+    
+    # Scale the numerical features
+    user_input_scaled = scaler.transform(user_input)
 
-
-# Button for predictions
-clicked = st.button('Get Predictions')
-
-# Perform predictions when the button is clicked
-if clicked:
     # Perform predictions using the pre-trained model
-    prediction = model.predict(user_input)
+    prediction = model.predict(user_input_scaled)
 
     # Display the prediction result
     st.header('Prediction')
