@@ -39,13 +39,10 @@ if clicked:
     feature5_encoded = ocean_proximity_mapping[feature5]
 
     # Prepare the input for prediction
-    user_input = np.array([[feature1, feature2, feature3, feature4]])
+    user_input = np.array([[feature1, feature2, feature3, feature4, feature5_encoded]])
     
     # Scale the numerical features
     user_input_scaled = scaler.transform(user_input)
-
-    # Add the encoded ocean_proximity feature back to the input
-    user_input_scaled = np.append(user_input_scaled, [[feature5_encoded]], axis=1)
 
     # Perform predictions using the pre-trained model
     prediction = model.predict(user_input_scaled)
