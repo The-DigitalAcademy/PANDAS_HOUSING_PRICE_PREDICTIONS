@@ -2,6 +2,7 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 # Load the pre-trained model
 model = tf.keras.models.load_model('model3.h5')
