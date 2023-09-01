@@ -17,6 +17,7 @@ feature2 = st.number_input("total_bedrooms", value=0)
 feature3 = st.number_input("households", value=0)
 feature4 = st.number_input("median_income", value=0)
 
+scaler = StandardScaler()
 # Scale and transform user input
 user_input = scaler.transform([[feature1, feature2, feature3, feature4]])
 
