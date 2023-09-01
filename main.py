@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 # Load the pre-trained model
-model = tf.keras.models.load_model('model3.h5')
+model = tf.keras.models.load_model('model4.h5')
 
 df =  pd.read_csv('housing_clean.csv')
 
