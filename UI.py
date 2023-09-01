@@ -30,7 +30,7 @@ if clicked:
         "NEAR BAY": 3,
         "ISLAND": 4
     }
-    feature9_encoded = ocean_proximity_mapping[feature9]
+    feature9_encoded = ocean_proximity_mapping[feature5]
 
     # Prepare the input for prediction
     input_features = np.array([[feature1, feature2, feature3, feature4, feature5_endcoded]])
