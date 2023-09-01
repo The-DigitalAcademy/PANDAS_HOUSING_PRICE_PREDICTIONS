@@ -24,10 +24,10 @@ clicked = st.button('Get Predictions')
 if clicked:
     # Preprocess the categorical feature
     ocean_proximity_mapping = {
-        "<1H OCEAN": 0,
-        "INLAND": 1,
-        "NEAR OCEAN": 2,
-        "NEAR BAY": 3,
+        "<1H OCEAN": 1,
+        "INLAND": 2,
+        "NEAR OCEAN": 3,
+        "NEAR BAY": 0,
         "ISLAND": 4
     }
     feature5_encoded = ocean_proximity_mapping[feature5]
