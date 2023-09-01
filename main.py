@@ -11,8 +11,8 @@ df =  pd.read_csv('housing_clean.csv')
 
 # Preprocess user input
 scaler = StandardScaler()
-numeric_columns = ['housing_median_age', 'total_bedrooms', 'households', 'median_income']
-scaler.fit(df[numeric_columns])
+
+scaler.fit(df)
 
 # Streamlit app
 st.title("HOUSE VALUE PREDICTION")
