@@ -33,7 +33,7 @@ if clicked:
     feature9_encoded = ocean_proximity_mapping[feature5]
 
     # Prepare the input for prediction
-    input_features = np.array([[feature1, feature2, feature3, feature4, feature5_endcoded]])
+    input_features = np.array([[feature1, feature2, feature3, feature4, feature5]])
 
     # Perform predictions using the selected model
     prediction = model.predict(input_features)
