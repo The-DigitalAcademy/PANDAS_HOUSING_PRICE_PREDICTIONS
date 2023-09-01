@@ -38,6 +38,9 @@ if clicked:
     # Perform predictions using the selected model
     prediction = model.predict(input_features)
 
-    # Display the prediction result
+    # Round the prediction to two decimal places
+    rounded_prediction = round(prediction[0][0], 2)
+
+    # Display the rounded prediction result
     st.header('Prediction')
-    st.write(f'The predicted house price is: {prediction[0][0]}')
+    st.write(f'The predicted house price is: {rounded_prediction}')
