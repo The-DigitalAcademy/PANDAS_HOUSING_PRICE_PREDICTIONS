@@ -33,14 +33,20 @@ if clicked:
     feature5_encoded = ocean_proximity_mapping[feature5]
 
     # Prepare the input for prediction
-    input_features = np.array([[feature1, feature2, feature3, feature4, feature5_encoded]])
+    input_features = np.array([[feature1, feature2, feature3, feature4, feature5_encoded]]
 
-    # Perform predictions using the selected model
+
+
     prediction = model.predict(input_features)
 
-    # Round the prediction to two decimal places
+    # Round the prediction to three decimal places
     rounded_prediction = round(prediction[0][0], 2)
 
-    # Display the rounded prediction result
+    # Multiply the rounded prediction by 2
+    multiplied_prediction = rounded_prediction * 2
+
+    # Display the multiplied prediction result
     st.header('Prediction')
-    st.write(f'The predicted house price is: {rounded_prediction}')
+    st.write(f'The predicted house price is: {multiplied_prediction}')
+    
+  
