@@ -42,6 +42,6 @@ if clicked:
     st.header('Prediction')
     st.write(f'The predicted house price is: {prediction[0][0]}')
 
-#if name == 'main':
-    #main()
+if __name__ == '__main__':
+    main()
 
