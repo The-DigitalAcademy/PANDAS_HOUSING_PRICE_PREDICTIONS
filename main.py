@@ -44,6 +44,8 @@ if clicked:
     # Scale the numerical features
     user_input_scaled = scaler.transform(user_input)
 
+    user_input_scaled = np.append(user_input_scaled, [[feature5_encoded]], axis=1)
+
     # Perform predictions using the pre-trained model
     prediction = model.predict(user_input_scaled)
 
